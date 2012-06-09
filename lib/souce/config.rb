@@ -1,61 +1,75 @@
 module Souce
   class Config
 
-    class << self
+    attr_accessor :role_map,
+      :env_map,
+      :raw_system_address,
+      :base_domain,
+      :gateway_suffix,
+      :nameserver_suffix,
+      :gateway_server,
+      :user,
+      :chef_server
 
-      attr_accessor :role_map,
-        :env_map,
-        :raw_system_address,
-        :base_domain,
-        :gateway_suffix,
-        :nameserver_suffix,
-        :gateway_server,
-        :user,
-        :chef_server
+    REQUIRED_FIELDS = [
+      :raw_system_address,
+      :base_domain,
+      :gateway_suffix,
+      :nameserver_suffix,
+      :gateway_server,
+      :user,
+      :chef_server
+    ]
 
 
-      def configure(&block)
-        dsl = DSL.new
-        dsl.instance_eval(&block)
+    def initialize(&block)
+      dsl = DSL.new
+      dsl.instance_eval(&block)
 
-        @role_map = dsl.state[:role_map]
-        @env_map = dsl.state[:env_map]
-        @raw_system_address = dsl.state[:raw_system_address]
-        @base_domain = dsl.state[:base_domain]
-        @gateway_suffix = dsl.state[:gateway_suffix]
-        @nameserver_suffix = dsl.state[:nameserver_suffix]
-        @gateway_server = dsl.state[:gateway_server]
-        @user = dsl.state[:user]
-        @chef_server = dsl.state[:chef_server]
+      @role_map = dsl.state[:role_map]
+      @env_map = dsl.state[:env_map]
+      @raw_system_address = dsl.state[:raw_system_address]
+      @base_domain = dsl.state[:base_domain]
+      @gateway_suffix = dsl.state[:gateway_suffix]
+      @nameserver_suffix = dsl.state[:nameserver_suffix]
+      @gateway_server = dsl.state[:gateway_server]
+      @user = dsl.state[:user]
+      @chef_server = dsl.state[:chef_server]
+    end
+
+    # reads the env_map and returns the canonical env
+    def env_for(env)
+      get_map(env, env_map)
+    end
+
+    # reads the role_map and returns the canonical role
+    def role_for(role)
+      get_map(role, role_map)
+    end
+
+    # a map is just a hash of synonyms
+    # given an item to be mapped, it will look it up in the map
+    # and return the synonym of the item if it exists.
+    # otherwise, it will return the item
+    #
+    # for example:
+    #   map = {
+    #       :app => 'application',
+    #       :db => 'postgres',
+    #   }
+    #  get_map('app', map) => 'application'
+    #  get_map('web', map) => 'web'
+    #
+    def get_map(item, map)
+      (map[item.to_sym] || item).to_s
+    end
+
+    # returns true if all required fields are set
+    # required fields are all except the env and role maps.
+    def valid?
+      REQUIRED_FIELDS.each do |f|
+        return false if self.send(f).nil?
       end
-
-      # reads the env_map and returns the canonical env
-      def env_for(env)
-        get_map(env, env_map)
-      end
-
-      # reads the role_map and returns the canonical role
-      def role_for(role)
-        get_map(role, role_map)
-      end
-
-      # a map is just a hash of synonyms
-      # given an item to be mapped, it will look it up in the map
-      # and return the synonym of the item if it exists.
-      # otherwise, it will return the item
-      #
-      # for example:
-      #   map = {
-      #       :app => 'application',
-      #       :db => 'postgres',
-      #   }
-      #  get_map('app', map) => 'application'
-      #  get_map('web', map) => 'web'
-      #
-      def get_map(item, map)
-        (map[item.to_sym] || item).to_s
-      end
-
     end
 
     class DSL

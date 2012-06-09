@@ -68,8 +68,8 @@ describe Souce::Config do
 
   context "maps" do
 
-    before(:all) do
-      Souce::Config.configure do
+    let(:config) do
+      Souce::Config.new do
         map_env :prod, 'production'
         map_env :qa, 'preproduction'
 
@@ -81,11 +81,11 @@ describe Souce::Config do
     context "#env_for" do
 
       it "should map an env properly if it is configured" do
-        Souce::Config.env_for(:prod).should == 'production'
+        config.env_for(:prod).should == 'production'
       end
 
       it "should return the passed env if it's not configured" do
-        Souce::Config.env_for(:staging).should == 'staging'
+        config.env_for(:staging).should == 'staging'
       end
 
     end
@@ -93,11 +93,11 @@ describe Souce::Config do
     context "#role_for" do
 
       it "should map a role properly if it's been configured" do
-        Souce::Config.role_for(:app).should == 'rails'
+        config.role_for(:app).should == 'rails'
       end
 
       it "should map a role properly if it hasn't been configured" do
-        Souce::Config.role_for(:db).should == 'db'
+        config.role_for(:db).should == 'db'
       end
 
     end
@@ -111,11 +111,11 @@ describe Souce::Config do
       context "with a symbol" do
 
         it "should return the right item from the map if it exists" do
-          Souce::Config.get_map(:app, map).should == 'application'
+          config.get_map(:app, map).should == 'application'
         end
 
         it "should return the item if it does not exist in the map" do
-          Souce::Config.get_map(:spike, map).should == 'spike'
+          config.get_map(:spike, map).should == 'spike'
         end
 
       end
@@ -123,16 +123,24 @@ describe Souce::Config do
       context "with a string" do
 
         it "should return the right item from the map if it exists" do
-          Souce::Config.get_map('app', map).should == 'application'
+          config.get_map('app', map).should == 'application'
         end
 
         it "should return the item if it does not exist in the map" do
-          Souce::Config.get_map('spike', map).should == 'spike'
+          config.get_map('spike', map).should == 'spike'
         end
 
       end
 
     end
+  end
+
+  context "valid?" do
+
+    Souce::Config::REQUIRED_FIELDS.each do |f|
+      it "should require #{f}"
+    end
+
   end
 
 end
