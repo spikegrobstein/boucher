@@ -33,6 +33,51 @@ describe Souce::Config do
 
       dsl.state[:role_map][:app].should == 'application'
     end
+
+    it "should add an environment map" do
+      dsl.state[:env_map].keys.count.should == 0
+
+      dsl.map_env :prod, 'production'
+
+      dsl.state[:env_map][:prod].should == 'production'
+    end
+
+    it "should set raw_system_address" do
+      dsl.raw_system_address 'raw-node.example.com'
+
+      dsl.state[:raw_system_address].should == 'raw-node.example.com'
+    end
+
+    it "should set base_domain" do
+      dsl.base_domain 'example.com'
+
+      dsl.state[:base_domain].should == 'example.com'
+    end
+
+    it "should set gateway_suffix" do
+      dsl.gateway_suffix '11'
+
+      dsl.state[:gateway_suffix].should == '11'
+    end
+
+    it "should set nameserver_suffix" do
+      dsl.nameserver_suffix '1'
+
+      dsl.state[:nameserver_suffix].should == '1'
+    end
+
+    it "should set gateway_server" do
+      dsl.gateway_server '10.0.0.1'
+
+      dsl.state[:gateway_server].should == '10.0.0.1'
+    end
+
+    it "should set chef_server" do
+      dsl.chef_server 'chef.example.com'
+
+      dsl.state[:chef_server].should == 'chef.example.com'
+    end
+
   end
 
   context "#env_for" do
