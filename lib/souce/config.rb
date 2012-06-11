@@ -16,7 +16,6 @@ module Souce
       :base_domain,
       :gateway_suffix,
       :nameserver_suffix,
-      :gateway_server,
       :user,
       :chef_server
     ]
