@@ -35,6 +35,19 @@ describe Souce::Blueprint do
       blueprint[:environment].should == 'production'
     end
 
+    it "should read the gateway_server"
+
+    it "should read the base_domain"
+
+    it "should read the system_address"
+
+    it "should read the gateway_suffix"
+
+    it "should read the nameserver_suffix"
+
+    it "should read the user"
+
+    it "should read the chef_server"
   end
 
 end
