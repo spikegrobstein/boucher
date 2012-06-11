@@ -14,6 +14,7 @@ describe Souce::Blueprint do
         base_domain 'example.com'
         raw_system_address '10.0.1.200'
         nameserver_suffix '2'
+        gateway_suffix '1'
         user 'admin'
         chef_server 'chef.example.com'
       end
@@ -35,19 +36,33 @@ describe Souce::Blueprint do
       blueprint[:environment].should == 'production'
     end
 
-    it "should read the gateway_server"
+    it "should read the gateway_server" do
+      blueprint[:gateway].should == 'admin@192.168.0.1'
+    end
 
-    it "should read the base_domain"
+    it "should read the base_domain" do
+      blueprint[:domain].should == 'example.com'
+    end
 
-    it "should read the system_address"
+    it "should read the system_address" do
+      blueprint[:system_address].should == '10.0.1.200'
+    end
 
-    it "should read the gateway_suffix"
+    it "should read the gateway_suffix" do
+      blueprint[:gateway_suffix].should == '1'
+    end
 
-    it "should read the nameserver_suffix"
+    it "should read the nameserver_suffix" do
+      blueprint[:nameserver_suffix].should == '2'
+    end
 
-    it "should read the user"
+    it "should read the user" do
+      blueprint[:user].should == 'admin'
+    end
 
-    it "should read the chef_server"
+    it "should read the chef_server" do
+      blueprint[:chef_server].should == 'chef.example.com'
+    end
   end
 
 end
