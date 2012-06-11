@@ -7,9 +7,9 @@ module Souce
       self[:role] = config.role_for(self[:role])
       self[:environment] = config.env_for(self[:environment])
 
-      self[:gateway] = config.gateway_server
-      self[:domain] = config.base_domain
-      self[:system_address] = config.raw_system_address
+      self[:gateway_server] = config.gateway_server
+      self[:base_domain] = config.base_domain
+      self[:raw_system_address] = config.raw_system_address
       self[:gateway_suffix] = config.gateway_suffix
       self[:nameserver_suffix] = config.nameserver_suffix
       self[:user] = config.user

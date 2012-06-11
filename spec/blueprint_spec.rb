@@ -37,15 +37,15 @@ describe Souce::Blueprint do
     end
 
     it "should read the gateway_server" do
-      blueprint[:gateway].should == 'admin@192.168.0.1'
+      blueprint[:gateway_server].should == 'admin@192.168.0.1'
     end
 
     it "should read the base_domain" do
-      blueprint[:domain].should == 'example.com'
+      blueprint[:base_domain].should == 'example.com'
     end
 
     it "should read the system_address" do
-      blueprint[:system_address].should == '10.0.1.200'
+      blueprint[:raw_system_address].should == '10.0.1.200'
     end
 
     it "should read the gateway_suffix" do
