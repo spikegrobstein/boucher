@@ -4,7 +4,7 @@ module Souce
     def initialize(hostname, role, config)
       parse_hostname(hostname)
 
-      self[:role] = role || config.role_for(self[:role])
+      self[:role] = config.role_for(self[:role])
       self[:environment] = config.env_for(self[:environment])
 
       self[:gateway] = config.gateway_server

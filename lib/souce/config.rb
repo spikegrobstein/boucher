@@ -86,11 +86,11 @@ module Souce
       end
 
       def map_role(new_role, existing_role)
-        @state[:role_map][new_role] = existing_role
+        @state[:role_map][new_role.to_sym] = existing_role
       end
 
       def map_env(new_env, existing_env)
-        @state[:env_map][new_env] = existing_env
+        @state[:env_map][new_env.to_sym] = existing_env
       end
 
       def raw_system_address(addr)
