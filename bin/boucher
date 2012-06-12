@@ -1,5 +1,7 @@
+$:<< './lib'
+
+require 'rubygems'
 require 'boucher'
 
-Boucher::CLI.new(ARGV)
-Boucher::CLI.run!
+Boucher::CLI.new(ARGV).run!
 
