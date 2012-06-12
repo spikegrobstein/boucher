@@ -1,4 +1,4 @@
-module Souce
+module Boucher
   class Config
 
     attr_accessor :role_map,

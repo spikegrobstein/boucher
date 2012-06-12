@@ -1,18 +1,18 @@
-require "souce/version"
-require 'souce/cli'
-require 'souce/config'
-require 'souce/blueprint'
-require 'souce/capistrano'
+require "boucher/version"
+require 'boucher/cli'
+require 'boucher/config'
+require 'boucher/blueprint'
+require 'boucher/capistrano'
 
 require 'pp'
 
-module Souce
+module Boucher
   class << self
 
     attr_accessor :cap
 
     def bootstrap(hostname, role, &block)
-      puts "That souce is DELISH!"
+      puts "That boucher is DELISH!"
 
       Config.configure(&block)
 

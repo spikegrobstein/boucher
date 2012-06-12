@@ -1,4 +1,4 @@
-module Souce
+module Boucher
   class Blueprint < Hash
 
     def initialize(hostname, role, config)
