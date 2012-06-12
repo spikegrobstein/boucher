@@ -1,4 +1,4 @@
-class Boucher
+module Boucher
   class CLI
 
     attr_accessor :hostname
