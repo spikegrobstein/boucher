@@ -1,10 +1,10 @@
-require 'souce'
-require 'souce/config'
+require 'boucher'
+require 'boucher/config'
 
-describe Souce::Config do
+describe Boucher::Config do
 
   context "DSL" do
-    let(:dsl) { Souce::Config::DSL.new }
+    let(:dsl) { Boucher::Config::DSL.new }
 
     it "should set the user appropriately" do
       dsl.user 'spike'
@@ -69,7 +69,7 @@ describe Souce::Config do
   context "maps" do
 
     let(:config) do
-      Souce::Config.new do
+      Boucher::Config.new do
         map_env :prod, 'production'
         map_env :qa, 'preproduction'
 
@@ -137,7 +137,7 @@ describe Souce::Config do
 
   context "valid?" do
 
-    Souce::Config::REQUIRED_FIELDS.each do |f|
+    Boucher::Config::REQUIRED_FIELDS.each do |f|
       it "should require #{f}"
     end
 

@@ -5,7 +5,7 @@ require 'awesome_print'
 
 $: << File.dirname(__FILE__) + '/../lib'
 
-require 'souce'
+require 'boucher'
 
 Rspec.configure do |config|
   # config

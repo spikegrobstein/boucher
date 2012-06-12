@@ -1,11 +1,11 @@
-require 'souce'
+require 'boucher'
 
-describe Souce::Blueprint do
+describe Boucher::Blueprint do
 
   context "#parse_host" do
 
     let(:config) do
-      Souce::Config.new do
+      Boucher::Config.new do
         map_role 'api-app', :api
 
         map_env :prod, :production
@@ -21,7 +21,7 @@ describe Souce::Blueprint do
     end
 
     let(:role) { 'app' }
-    let(:blueprint) { Souce::Blueprint.new(hostname, role, config) }
+    let(:blueprint) { Boucher::Blueprint.new(hostname, role, config) }
     let(:hostname) { 'api-app001.prod' }
 
     it "should read the role" do
