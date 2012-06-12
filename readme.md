@@ -140,3 +140,13 @@ or
     # pass the path to a file containing the password
     # will be `chomp`'d
     password_file '~/.boucher_pass'
+
+## Author and License
+
+Spike Grobstein  
+me@spike.cx  
+http://spike.grobste.in  
+https://github.com/spikegrobstein
+
+MIT License (See LICENSE file.)
+
