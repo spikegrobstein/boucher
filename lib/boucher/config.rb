@@ -21,9 +21,19 @@ module Boucher
     ]
 
 
-    def initialize(&block)
+    def initialize(*args, &block)
+      file = args.first
+
+      # raise an error unless we get one of file and block.
+      raise "Initializing incorrectly. Filepath or block. not both." if file.nil? != block_given?
+
       dsl = DSL.new
-      dsl.instance_eval(&block)
+
+      if block_given?
+        dsl.instance_eval(&block)
+      else
+        dsl.instance_eval(File.open(file, 'r').read)
+      end
 
       @role_map = dsl.state[:role_map]
       @env_map = dsl.state[:env_map]

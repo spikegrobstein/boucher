@@ -1,0 +1,5 @@
+require 'boucher'
+
+Boucher::CLI.new(ARGV)
+Boucher::CLI.run!
+
