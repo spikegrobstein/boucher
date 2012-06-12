@@ -32,7 +32,11 @@ module Boucher
       if block_given?
         dsl.instance_eval(&block)
       else
-        dsl.instance_eval(File.open(file, 'r').read)
+        begin
+          dsl.instance_eval(File.open(file, 'r').read, file)
+        rescue => e
+          raise
+        end
       end
 
       @role_map = dsl.state[:role_map]

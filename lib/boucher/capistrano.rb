@@ -21,7 +21,7 @@ module Boucher
 
         set :gateway, blueprint[:gateway] unless blueprint[:gateway].nil?
 
-        role :raw_node, blueprint[:system_address]
+        role :raw_node, blueprint[:raw_system_address]
         role :node, blueprint[:hostname]
         role :chef_server, blueprint[:chef_server]
 
