@@ -1,4 +1,5 @@
 require "boucher/version"
+require 'boucher/meatfile'
 require 'boucher/cli'
 require 'boucher/config'
 require 'boucher/blueprint'
