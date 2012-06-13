@@ -7,9 +7,9 @@ Gem::Specification.new do |s|
   s.version     = Boucher::VERSION
   s.authors     = ["Spike Grobstein"]
   s.email       = ["spikegrobstein@mac.com"]
-  s.homepage    = ""
-  s.summary     = %q{TODO: Write a gem summary}
-  s.description = %q{TODO: Write a gem description}
+  s.homepage    = "https://github.com/spikegrobstein/boucher"
+  s.summary     = %q{Bootstrap systems from generic templates for Chef infrastructure.}
+  s.description = %q{Bootstrap systems from generic templates for Chef infrastructure.}
 
   s.rubyforge_project = "boucher"
 
