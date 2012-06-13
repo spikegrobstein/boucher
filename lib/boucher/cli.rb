@@ -19,7 +19,7 @@ module Boucher
     def run!
       @cap = Capistrano.new(@blueprint)
 
-      #@cap.run_recipe
+      @cap.run_recipe
     end
 
 
