@@ -28,7 +28,7 @@ module Boucher
         set :user, blueprint[:user]
       end
 
-      load File.join(File.dirname(__FILE__), 'recipe')
+      load File.join(File.dirname(__FILE__), 'recipe.rb')
     end
 
     def run_recipe
