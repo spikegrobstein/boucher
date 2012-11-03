@@ -3,14 +3,23 @@
     ##      ALPHA SOFTWARE WARNING       ##
     #######################################
 
+Boucher is currently ALPHA level software. This means that it's got a LOT of rough edges,
+is not fully tested nor is it fully documented. In fact, this documentation can be downright
+incorrect or misleading. If you're feeling adventurous, you can try it out.
+
 # Boucher
 
 *Be the butcher, not the meat.*
 
-Using a Meatfile to describe some conventions of your infrastructure, run the `knife bootstrap` command
-on a freshly deployed server. The Meatfile will build the `knife bootstrap` command and allow you to
-run through a gateway/jumpserver and also autoconfigure the network settings on said server before running
-Chef.
+Boucher simplifies your life by allowing you to define your Chef configuration via convention
+and configure servers quickly. Boucher is compatible with both Chef Server and Chef Solo and
+will gleen information about the servers in question just by looking at the hostname.
+
+When running Chef Server, Boucher can apply a base configuration to your node before running
+the `knife bootstrap` command.
+
+When running Chef Solo, Boucher will handle uploading your cookbooks and running the `chef-solo`
+command.
 
 ## Prerequisites
 
@@ -140,6 +149,25 @@ or
     # pass the path to a file containing the password
     # will be `chomp`'d
     password_file '~/.boucher_pass'
+
+## TODO
+
+Boucher is not feature-complete, yet, and still has a long way to go before it's ready for
+general release. Following are things on my todo list:
+
+ * support for users who do not leverage Chef environments (eg: production, staging, etc)
+ * customizable rules for parsing hostnames
+ * customizable rules for recipes to run for `chef-solo` installations
+ * manual running of `chef-client`
+ * customizable node configuration
+ * more robust support for raw nodes
+ * more robust rules for network settings on raw nodes
+ * support for non-Ubuntu servers during bootstrap
+ * support for stored passwords (even though the docs say it has it)
+ * support for default roles and environments (even though it's in the docs)
+ * support for more Meatfile locations
+ * better commandline options support
+ * better validations of Meatfile
 
 ## Author and License
 
