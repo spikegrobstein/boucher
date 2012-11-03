@@ -65,4 +65,8 @@ describe Boucher::Blueprint do
     end
   end
 
+  context "when not bootstrapping" do
+
+  end
+
 end
