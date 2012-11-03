@@ -2,7 +2,7 @@ PATH
   remote: .
   specs:
     boucher (0.0.1)
-      capistrano
+      capistrano (>= 2.13.5)
 
 GEM
   remote: http://rubygems.org/
