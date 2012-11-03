@@ -3,5 +3,5 @@ $: << File.join( File.dirname(__FILE__), '../lib' )
 require 'rubygems'
 require 'boucher'
 
-Boucher::CLI.new(ARGV).run!
+Boucher::CLI.new(*ARGV).run!
 
