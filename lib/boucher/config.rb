@@ -42,12 +42,12 @@ module Boucher
 
     # reads the env_map and returns the canonical env
     def env_for(env)
-      get_map(env, env_map)
+      get_map(env, @env_map)
     end
 
     # reads the role_map and returns the canonical role
     def role_for(role)
-      get_map(role, role_map)
+      get_map(role, @role_map)
     end
 
     # a map is just a hash of synonyms
