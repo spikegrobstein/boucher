@@ -1,5 +1,4 @@
-require 'boucher'
-require 'boucher/config'
+require File.join( File.dirname(__FILE__), 'spec_helper' )
 
 describe Boucher::Config do
 
