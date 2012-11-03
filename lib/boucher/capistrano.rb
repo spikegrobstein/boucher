@@ -36,7 +36,7 @@ module Boucher
         def ping_node
           cmd = "ping -c 1 -t 2 #{ hostname } 2>&1 > /dev/null"
 
-          if find_servers(:roles => :chef_server).count > 0
+          if using_chef_server?
             run cmd, :roles => :chef_server
           else
             run_locally cmd
@@ -69,15 +69,28 @@ module Boucher
           return true
         end
 
+        def using_chef_server?
+          find_servers(:roles => :chef_server).count > 0
+        end
 
-        unless node_online?
-          configure_node
+        def using_raw_node?
+          find_servers(:roles => :raw_node).count > 0
+        end
 
-          puts "==================================================================="
-          puts "    DON'T FORGET TO UPDATE YOUR NETWORKING CONFIG IF NECESSARY"
-          puts "==================================================================="
 
-          wait_for_node_to_come_online
+        if !node_online?
+          if using_raw_node?
+            configure_node
+
+            puts "==================================================================="
+            puts "    DON'T FORGET TO UPDATE YOUR NETWORKING CONFIG IF NECESSARY"
+            puts "==================================================================="
+
+            wait_for_node_to_come_online
+          else
+            # if we're not using a raw node, just spit out error
+            abort "Node is not online. Cannot continue."
+          end
         end
 
         begin
