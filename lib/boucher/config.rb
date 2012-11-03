@@ -11,16 +11,6 @@ module Boucher
       :user,
       :chef_server
 
-    REQUIRED_FIELDS = [
-      :raw_system_address,
-      :base_domain,
-      :gateway_suffix,
-      :nameserver_suffix,
-      :user,
-      :chef_server
-    ]
-
-
     def initialize(*args, &block)
       file = args.first
 
@@ -75,14 +65,6 @@ module Boucher
     #
     def get_map(item, map)
       (map[item.to_sym] || item).to_s
-    end
-
-    # returns true if all required fields are set
-    # required fields are all except the env and role maps.
-    def valid?
-      REQUIRED_FIELDS.each do |f|
-        return false if self.send(f).nil?
-      end
     end
 
     class DSL

@@ -135,12 +135,5 @@ describe Boucher::Config do
     end
   end
 
-  context "valid?" do
-
-    Boucher::Config::REQUIRED_FIELDS.each do |f|
-      it "should require #{f}"
-    end
-
-  end
 
 end
