@@ -12,12 +12,15 @@ module Boucher
       #load "standard"
 
       load do
+        default_run_options[:pty] = true
+
         set :hostname, blueprint[:hostname]
         set :serial, blueprint[:serial]
         set :chef_role, blueprint[:role]
         set :gateway_suffix, blueprint[:gateway_suffix]
         set :chef_env, blueprint[:environment]
         set :domain, blueprint[:domain]
+        set :chef_role, blueprint[:role]
 
         set :gateway, blueprint[:gateway] unless blueprint[:gateway].nil?
 

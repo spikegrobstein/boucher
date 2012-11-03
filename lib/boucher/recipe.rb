@@ -35,7 +35,8 @@ end
 
 # create solo.rb and run chef-solo
 task :run_chef_solo, :roles => :node do
-
+  run "echo 'cookbook_path \"/tmp/boucher_cookbooks\"' > /tmp/boucher_cookbooks/solo.rb"
+  run "#{ sudo } chef-solo -o 'roles::#{ chef_role }' -c /tmp/boucher_cookbooks/solo.rb"
 end
 
 
