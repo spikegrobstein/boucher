@@ -7,7 +7,4 @@ $: << File.dirname(__FILE__) + '/../lib'
 
 require 'boucher'
 
-Rspec.configure do |config|
-  # config
-end
 
