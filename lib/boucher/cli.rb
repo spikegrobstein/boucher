@@ -4,12 +4,10 @@ module Boucher
     attr_accessor :hostname
     attr_accessor :meatfile
 
-    def initialize(args)
+    def initialize(*args)
       @hostname = args.first
       @meatfile = Meatfile::hunt_for_meat
       @config = Config.new(@meatfile)
-
-      raise "Config not valid" unless @config.valid?
 
       @blueprint = Blueprint.new(@hostname, 'role', @config)
     end

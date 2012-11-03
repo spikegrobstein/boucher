@@ -3,12 +3,11 @@ require 'boucher'
 describe Boucher::CLI do
 
   let(:hostname) { 'app001.prod' }
-  let(:cli_class) { Boucher::CLI.any_instance }
   let(:cli) { Boucher::CLI.new(hostname) }
 
   context "initializing" do
     before do
-      cli_class.stub(:hunt_for_meat => nil)
+      Boucher::CLI.stub(:hunt_for_meat => nil)
     end
 
     it "should set the hostname from the arguments" do
