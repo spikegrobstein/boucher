@@ -22,7 +22,7 @@ module Boucher
 
       unless hostname.match HOSTNAME_PARSE_REGEX
         # cannot determine the role/serial/env from the hostname
-        raise "Cannot determine the role/serial/environment from #{ hostname } using #{ HOSTNAME_PARSE_REGEX.to_s }"
+        raise "Cannot determine the role/serial/environment from #{ hostname } using #{ HOSTNAME_PARSE_REGEX.inspect }"
       end
 
       merge!(Hash[([:role,:serial,:environment].zip hostname.scan(HOSTNAME_PARSE_REGEX).flatten)])
