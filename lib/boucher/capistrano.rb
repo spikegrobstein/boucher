@@ -33,7 +33,18 @@ module Boucher
 
     def run_recipe
       load do
-        if ENV['ONLY_BOOTSTRAP'].nil?
+
+        def node_online?
+          begin
+            ping_node
+          rescue
+            return false
+          end
+
+          return true
+        end
+
+        unless node_online?
           configure_node
 
           puts "==================================================================="
