@@ -9,10 +9,6 @@ task :bootstrap, :roles => :chef_server do
   run "knife bootstrap #{hostname} -x #{user} -P #{password} -N #{hostname} -r 'role[#{chef_role}]' --sudo -E #{chef_env} --no-host-key-verify"
 end
 
-task :ping_node, :roles => :chef_server do
-  run "ping -c 1 #{ hostname } 2>&1 > /dev/null"
-end
-
 task :wait_for_node_to_come_online, :roles => :chef_server do
   max_tries = 20
 

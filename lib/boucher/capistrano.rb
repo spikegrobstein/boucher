@@ -33,6 +33,31 @@ module Boucher
 
     def run_recipe
       load do
+        def ping_node
+          cmd = "ping -c 1 -t 2 #{ hostname } 2>&1 > /dev/null"
+
+          if find_servers(:roles => :chef_server).count > 0
+            run cmd, :roles => :chef_server
+          else
+            run_locally cmd
+          end
+        end
+
+        # stolen from Capistrano's deploy recipe
+        # logs the command then executes it locally.
+        # returns the command output as a string
+        def run_locally(cmd)
+          logger.trace "executing locally: #{cmd.inspect}" if logger
+          output_on_stdout = nil
+          elapsed = Benchmark.realtime do
+            output_on_stdout = `#{cmd}`
+          end
+          if $?.to_i > 0 # $? is command exit code (posix style)
+            raise ::Capistrano::LocalArgumentError, "Command #{cmd} returned status code #{$?}"
+          end
+          logger.trace "command finished in #{(elapsed * 1000).round}ms" if logger
+          output_on_stdout
+        end
 
         def node_online?
           begin
@@ -43,6 +68,7 @@ module Boucher
 
           return true
         end
+
 
         unless node_online?
           configure_node
