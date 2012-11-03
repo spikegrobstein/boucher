@@ -26,6 +26,8 @@ module Boucher
         role :chef_server, blueprint[:chef_server] if blueprint[:chef_server]
 
         set :user, blueprint[:user]
+
+        set :cookbook_path, blueprint[:cookbook_path]
       end
 
       load File.join(File.dirname(__FILE__), 'recipe.rb')
@@ -93,12 +95,19 @@ module Boucher
           end
         end
 
-        begin
-          bootstrap
-        rescue ::Capistrano::CommandError
-          # try again
-          puts "Trying again..."
-          bootstrap
+        if using_chef_server?
+          begin
+            bootstrap
+          rescue ::Capistrano::CommandError
+            # try again
+            puts "Trying again..."
+            bootstrap
+          end
+        else
+          # we're not using chef server
+          # so we just want to copy the cookbooks, build a solo.rb and chef-solo it up on the node
+          upload_cookbooks
+          run_chef_solo
         end
       end
     end

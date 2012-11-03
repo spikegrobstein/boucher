@@ -15,6 +15,7 @@ module Boucher
       self[:nameserver_suffix] = config.nameserver_suffix
       self[:user] = config.user
       self[:chef_server] = config.chef_server
+      self[:cookbook_path] = config.cookbook_path
     end
 
     def parse_hostname(hostname)

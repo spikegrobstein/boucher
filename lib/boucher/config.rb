@@ -9,7 +9,8 @@ module Boucher
       :nameserver_suffix,
       :gateway_server,
       :user,
-      :chef_server
+      :chef_server,
+      :cookbook_path
 
     def initialize(*args, &block)
       file = args.first
@@ -38,6 +39,7 @@ module Boucher
       @gateway_server = dsl.state[:gateway_server]
       @user = dsl.state[:user]
       @chef_server = dsl.state[:chef_server]
+      @cookbook_path = dsl.state[:cookbook_path]
     end
 
     # reads the env_map and returns the canonical env
@@ -110,6 +112,10 @@ module Boucher
 
       def chef_server(server)
         @state[:chef_server] = server
+      end
+
+      def cookbook_path(path)
+        @state[:cookbook_path] = path
       end
     end
 

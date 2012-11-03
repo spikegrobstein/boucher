@@ -22,3 +22,20 @@ task :wait_for_node_to_come_online, :roles => :chef_server do
     retry if max_tries > 0
   end
 end
+
+# upload the cookbooks
+task :upload_cookbooks, :roles => :node do
+  dest_path = '/tmp/boucher_cookbooks'
+
+  # first, try to delete the old cookbooks
+  run "rm -rf #{ dest_path } || true"
+
+  upload fetch(:cookbook_path), dest_path
+end
+
+# create solo.rb and run chef-solo
+task :run_chef_solo, :roles => :node do
+
+end
+
+
