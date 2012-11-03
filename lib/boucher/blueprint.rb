@@ -1,5 +1,6 @@
 module Boucher
   class Blueprint < Hash
+    HOSTNAME_PARSE_REGEX = /^(.+?)(\d+)\.(.+?)$/
 
     def initialize(hostname, role, config)
       parse_hostname(hostname)
@@ -18,7 +19,13 @@ module Boucher
 
     def parse_hostname(hostname)
       self[:hostname] = hostname
-      merge!(Hash[([:role,:serial,:environment].zip hostname.scan(/^(.+?)(\d+)\.(.+?)$/).flatten)])
+
+      unless hostname.match HOSTNAME_PARSE_REGEX
+        # cannot determine the role/serial/env from the hostname
+        raise "Cannot determine the role/serial/environment from #{ hostname } using #{ HOSTNAME_PARSE_REGEX.to_s }"
+      end
+
+      merge!(Hash[([:role,:serial,:environment].zip hostname.scan(HOSTNAME_PARSE_REGEX).flatten)])
     end
     private :parse_hostname
 
