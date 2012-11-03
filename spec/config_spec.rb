@@ -11,20 +11,37 @@ describe Boucher::Config do
       dsl.state[:user].should == 'spike'
     end
 
-    it "should map a new role appropriately" do
-      dsl.state[:role_map].keys.count.should == 0
+    context "maps" do
+      let(:config) do
+        Boucher::Config.new do
+          #empty config
+        end
+      end
 
-      dsl.map_role :app, 'application'
+      it "should map a new role appropriately" do
+        dsl.state[:role_map].keys.count.should == 0
 
-      dsl.state[:role_map][:app].should == 'application'
-    end
+        dsl.map_role :app, 'application'
 
-    it "should add an environment map" do
-      dsl.state[:env_map].keys.count.should == 0
+        dsl.state[:role_map][:app].should == 'application'
+      end
 
-      dsl.map_env :prod, 'production'
+      it "should add an environment map" do
+        dsl.state[:env_map].keys.count.should == 0
 
-      dsl.state[:env_map][:prod].should == 'production'
+        dsl.map_env :prod, 'production'
+
+        dsl.state[:env_map][:prod].should == 'production'
+      end
+
+      it "should not blow up if no env_map is specified" do
+        config.env_for('production').should == 'production'
+      end
+
+      it "should not blow up if no role_map is specified" do
+        config.role_for('app').should == 'app'
+      end
+
     end
 
     it "should set raw_system_address" do
