@@ -12,7 +12,9 @@ module Boucher
       :gateway_server,
       :user,
       :chef_server,
-      :cookbook_path
+      :cookbook_path,
+      :default_role,
+      :default_environment
 
     # This is the main processor class
     # Given a Meatfile, it will run it, process it, and return an instance
@@ -66,12 +68,12 @@ module Boucher
 
     # reads the env_map and returns the canonical env
     def env_for(env)
-      get_map(env, @env_map)
+      get_map(env, @env_map) || @default_environment
     end
 
     # reads the role_map and returns the canonical role
     def role_for(role)
-      get_map(role, @role_map)
+      get_map(role, @role_map) || @default_role
     end
 
     # a map is just a hash of synonyms
@@ -89,6 +91,7 @@ module Boucher
     #  get_map('web', map) #=> 'web'
     #
     def get_map(item, map)
+      return nil if item.nil?
       (map[item.to_sym] || item).to_s
     end
 
@@ -127,6 +130,9 @@ module Boucher
       dsl_setter :gateway_server
       dsl_setter :chef_server
       dsl_setter :cookbook_path
+
+      dsl_setter :default_role
+      dsl_setter :default_environment
 
       def initialize(meatgrinder)
         @m = meatgrinder

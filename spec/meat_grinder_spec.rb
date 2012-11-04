@@ -7,9 +7,7 @@ describe Boucher::MeatGrinder do
   context "DSL" do
     let(:dsl) { Boucher::MeatGrinder::DSL.new(meatgrinder) }
 
-
-    context "maps" do
-
+    context "map_role" do
       it "should map a new role appropriately" do
         meatgrinder.role_map.keys.count.should == 0
 
@@ -18,12 +16,8 @@ describe Boucher::MeatGrinder do
         meatgrinder.role_for(:app).should == 'application'
       end
 
-      it "should add an environment map" do
-        meatgrinder.env_map.keys.count.should == 0
-
-        dsl.map_env :prod, 'production'
-
-        meatgrinder.env_for(:prod).should == 'production'
+      it "should not blow up if no role_map is specified" do
+        meatgrinder.role_for('app').should == 'app'
       end
 
       it "should support setting with strings" do
@@ -38,14 +32,31 @@ describe Boucher::MeatGrinder do
         meatgrinder.role_for('app').should == 'application'
       end
 
+      it "should return the default role if a nil role is looked up" do
+        dsl.default_role 'generic'
+
+        meatgrinder.role_for(nil).should == 'generic'
+      end
+    end
+
+    context "map_env" do
+      it "should add an environment map" do
+        meatgrinder.env_map.keys.count.should == 0
+
+        dsl.map_env :prod, 'production'
+
+        meatgrinder.env_for(:prod).should == 'production'
+      end
+
       it "should not blow up if no env_map is specified" do
         meatgrinder.env_for('production').should == 'production'
       end
 
-      it "should not blow up if no role_map is specified" do
-        meatgrinder.role_for('app').should == 'app'
-      end
+      it "should return the default environment if a nil env is looked up" do
+        dsl.default_environment 'default'
 
+        meatgrinder.env_for(nil).should == 'default'
+      end
     end
 
     it "should set the user appropriately" do
