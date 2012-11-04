@@ -4,6 +4,7 @@ describe Boucher::CLI do
 
   let(:hostname) { 'app001.prod' }
   let(:cli) { Boucher::CLI.new(hostname) }
+  let(:meatfile) { File.join( File.dirname(__FILE__), 'fixtures/Meatfile' ) }
 
   context "initializing" do
     before do
@@ -15,7 +16,7 @@ describe Boucher::CLI do
     end
 
     it "should try to find the meat" do
-      Boucher::Meatfile.should_receive(:hunt_for_meat).and_return('Meatfile')
+      Boucher::Meatfile.should_receive(:hunt_for_meat).and_return(meatfile)
       cli
     end
   end
