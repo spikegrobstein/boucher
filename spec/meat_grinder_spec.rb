@@ -11,18 +11,18 @@ describe Boucher::MeatGrinder do
         let(:hostname) { 'app001.prod' }
 
         context "when using FQDN" do
-          let(:hostname) { 'app001.prod.dc.example.com' }
+          let(:fqdn_hostname) { "#{ hostname }.dc.example.com" }
 
           it "should read the role" do
-            meatgrinder.parse_hostname(hostname)[:role].should == 'app'
+            meatgrinder.parse_hostname(fqdn_hostname)[:role].should == 'app'
           end
 
           it "should read the serial" do
-            meatgrinder.parse_hostname(hostname)[:serial].should == '001'
+            meatgrinder.parse_hostname(fqdn_hostname)[:serial].should == '001'
           end
 
           it "should read the environment" do
-            meatgrinder.parse_hostname(hostname)[:environment].should == 'prod'
+            meatgrinder.parse_hostname(fqdn_hostname)[:environment].should == 'prod'
           end
 
         end
