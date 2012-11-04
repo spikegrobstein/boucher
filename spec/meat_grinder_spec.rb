@@ -47,6 +47,10 @@ describe Boucher::MeatGrinder do
 
       context "when provided an invalid hostname" do
 
+        it "should raise an error if the hostname isn't parsable" do
+          lambda { meatgrinder.parse_hostname('app-001') }.should raise_error
+        end
+
       end
 
     end
