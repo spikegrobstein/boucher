@@ -29,6 +29,32 @@ module Boucher
       dsl.instance_eval( File.open(meatfile_path, 'r').read, meatfile_path)
     end
 
+    # given a capistrano configuration +config+, intitialize the variables
+    # and roles.
+    def load_into(config, hostname)
+      # host-specific config:
+      config.set :node_hostname,   hostname
+
+      host_info = self.parse_hostname(hostname)
+      config.set :node_role,       self.role_for( host_info[:role] )
+      config.set :node_serial,     host_info[:serial]
+      config.set :node_env,        self.env_for( host_info[:environment] )
+
+      # basic configuration:
+      config.set :gateway_suffix,  self.gateway_suffix
+      config.set :domain,          self.base_domain
+      config.set :user,            self.user               if self.user
+      config.set :cookbook_path,   self.cookbook_path      if self.cookbook_path
+
+      # gateway server, if one is defined
+      config.set :gateway,         self.gateway_server     if self.gateway_server
+
+      # roles
+      config.role :node,           hostname
+      config.role :raw_node,       self.raw_system_address if self.raw_system_address
+      config.role :chef_server,    self.chef_server        if self.chef_server
+    end
+
     def parse_hostname(hostname)
       unless hostname.match HOSTNAME_PARSE_REGEX
         # cannot determine the role/serial/env from the hostname
@@ -85,7 +111,7 @@ module Boucher
       #  def user(new_user)
       #    @m.admin_user = new_user
       #  end
-      def self.create_setter(name, var=nil)
+      def self.dsl_setter(name, var=nil)
         var = name if var.nil?
 
         define_method name do |val|
@@ -93,18 +119,17 @@ module Boucher
         end
       end
 
-      create_setter :user
-      create_setter :raw_system_address
-      create_setter :base_domain
-      create_setter :gateway_suffix
-      create_setter :nameserver_suffix
-      create_setter :gateway_server
-      create_setter :chef_server
-      create_setter :cookbook_path
+      dsl_setter :user
+      dsl_setter :raw_system_address
+      dsl_setter :base_domain
+      dsl_setter :gateway_suffix
+      dsl_setter :nameserver_suffix
+      dsl_setter :gateway_server
+      dsl_setter :chef_server
+      dsl_setter :cookbook_path
 
       def initialize(meatgrinder)
         @m = meatgrinder
-
       end
 
       def map_role(new_role, existing_role)

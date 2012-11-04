@@ -1,8 +1,7 @@
 require "boucher/version"
 require 'boucher/meatfile'
+require 'boucher/meat_grinder'
 require 'boucher/cli'
-require 'boucher/config'
-require 'boucher/blueprint'
 require 'boucher/capistrano'
 
 require 'pp'
