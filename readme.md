@@ -69,8 +69,9 @@ An example `Meatfile` would be:
     map_env :prod, 'production'
 
     # rule for translating hostname into role/serial/environment
-    map_hostname do |hostname, blueprint|
-      # EXPERIMENTAL
+    # this parses a hostname that's in the format of: '<role>-<serial><e>' (eg:'app-001p')
+    map_hostname do |h|
+      Hash[([:role, :serial, :environment].zip h.scan(/^(.+?)-(\d+)([psd])/).flatten)]
     end
 
 You could then create a DNS entry for 2 appservers; one for production and one for staging:

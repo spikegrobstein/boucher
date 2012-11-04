@@ -56,9 +56,49 @@ describe Boucher::MeatGrinder do
     end
 
     context "when a parser is provided" do
+
+      let(:dsl) { Boucher::MeatGrinder::DSL.new(meatgrinder) }
+      let(:hostname) { 'app-100p' }
+
       before do
-        meatgrinder.hostname_par
+        dsl.map_hostname do |h|
+          Hash[([:role, :serial, :environment].zip h.scan(/^(.+?)-(\d+)([psd])/).flatten)]
+        end
       end
+
+      context "when provided a short hostname" do
+
+        it "should read the role" do
+          meatgrinder.parse_hostname(hostname)[:role].should == 'app'
+        end
+
+        it "should read the serial" do
+          meatgrinder.parse_hostname(hostname)[:serial].should == '100'
+        end
+
+        it "should read the environment" do
+          meatgrinder.parse_hostname(hostname)[:environment].should == 'p'
+        end
+
+      end
+
+      context "when provided a FQDN for hostname" do
+        let(:fqdn_hostname) { "#{ hostname }.example.com" }
+
+        it "should read the role" do
+          meatgrinder.parse_hostname(fqdn_hostname)[:role].should == 'app'
+        end
+
+        it "should read the serial" do
+          meatgrinder.parse_hostname(fqdn_hostname)[:serial].should == '100'
+        end
+
+        it "should read the environment" do
+          meatgrinder.parse_hostname(fqdn_hostname)[:environment].should == 'p'
+        end
+
+      end
+
     end
   end
 
