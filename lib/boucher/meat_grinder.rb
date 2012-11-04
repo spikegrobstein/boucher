@@ -1,7 +1,7 @@
 module Boucher
   class MeatGrinder
 
-    HOSTNAME_PARSE_REGEX = /^(.+?)(\d+)\.(.+?)$/
+    HOSTNAME_PARSE_REGEX = /^(.+?)(\d+)\.([^.]+)/
 
     attr_accessor :role_map,
       :env_map,
@@ -14,7 +14,8 @@ module Boucher
       :chef_server,
       :cookbook_path,
       :default_role,
-      :default_environment
+      :default_environment,
+      :hostname_parser
 
     # This is the main processor class
     # Given a Meatfile, it will run it, process it, and return an instance
@@ -58,6 +59,10 @@ module Boucher
     end
 
     def parse_hostname(hostname)
+      unless @hostname_parser.nil?
+        return @hostname_parser.call(hostname)
+      end
+
       unless hostname.match HOSTNAME_PARSE_REGEX
         # cannot determine the role/serial/env from the hostname
         raise "Cannot determine the role/serial/environment from #{ hostname } using #{ HOSTNAME_PARSE_REGEX.inspect }"
@@ -144,6 +149,10 @@ module Boucher
 
       def map_env(new_env, existing_env)
         @m.env_map[new_env.to_sym] = existing_env
+      end
+
+      def map_hostname(&block)
+        @m.hostname_parser = block
       end
 
     end
