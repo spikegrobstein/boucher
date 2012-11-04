@@ -15,9 +15,7 @@ describe Boucher::CLI do
     end
 
     it "should try to find the meat" do
-      Boucher::Config.stub(:new => mock(Boucher::Config, :valid? => true))
-      Boucher::Blueprint.stub(:new => mock(Boucher::Blueprint))
-      Boucher::Meatfile.should_receive(:hunt_for_meat)
+      Boucher::Meatfile.should_receive(:hunt_for_meat).and_return('Meatfile')
       cli
     end
   end
