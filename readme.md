@@ -168,6 +168,7 @@ general release. Following are things on my todo list:
  * support for more Meatfile locations
  * better commandline options support
  * better validations of Meatfile
+ * look for knife.rb to find cookbook path(s) rather than relying on Meatfile definition.
 
 ## Author and License
 
