@@ -8,7 +8,7 @@ describe Boucher::CLI do
 
   context "initializing" do
     before do
-      Boucher::CLI.stub(:hunt_for_meat => nil)
+      Boucher::Meatfile.should_receive(:hunt_for_meat).and_return(meatfile)
     end
 
     it "should set the hostname from the arguments" do
@@ -16,7 +16,6 @@ describe Boucher::CLI do
     end
 
     it "should try to find the meat" do
-      Boucher::Meatfile.should_receive(:hunt_for_meat).and_return(meatfile)
       cli
     end
   end
