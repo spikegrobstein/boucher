@@ -19,4 +19,5 @@ Gem::Specification.new do |s|
   s.require_paths = ["lib"]
 
   s.add_dependency "capistrano", '>= 2.13.5'
+  s.add_dependency "term-ansicolor"
 end
