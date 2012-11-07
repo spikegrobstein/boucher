@@ -3,18 +3,6 @@
     ##      ALPHA SOFTWARE WARNING       ##
     #######################################
 
-
-      .""--.
-     /  _   "'-.._______________
-    :  (_)                      !------------.
-    !                           ! O    O    O )
-    !                           !------------'
-    !                           |
-    |                           |
-    |._________________________.|
-    '___________________________'
-
-
 Boucher is currently ALPHA level software. This means that it's got a LOT of rough edges,
 is not fully tested nor is it fully documented. In fact, this documentation can be downright
 incorrect or misleading. If you're feeling adventurous, you can try it out.
