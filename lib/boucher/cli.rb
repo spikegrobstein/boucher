@@ -6,6 +6,7 @@ module Boucher
     attr_accessor :meatgrinder
 
     def initialize(*args)
+      show_splash
       @hostname = args.first
       @meatfile = Meatfile::hunt_for_meat
       @meatgrinder = MeatGrinder.new
@@ -24,6 +25,23 @@ module Boucher
       @cap.run_recipe
     end
 
+    def show_splash
+      $stderr.puts <<-SPLASH
+
+    .""--.
+   /      "'-.._______________
+  :  (_)                      !------------.
+  !                           ! O    O    O )
+  !                           !------------'
+  !                           |   _                 _
+  |                           |  | |__  ___ _  _ __| |_  ___ _ _
+  |._________________________.|  | '_ \\/ _ \\ || / _| ' \\/ -_) '_|
+  '___________________________'  |_.__/\\___/\\_,_\\__|_||_\\___|_|
+
+===================================================================
+
+      SPLASH
+    end
 
   end
 end
