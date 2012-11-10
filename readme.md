@@ -170,6 +170,15 @@ general release. Following are things on my todo list:
  * better commandline options support
  * better validations of Meatfile
  * look for knife.rb to find cookbook path(s) rather than relying on Meatfile definition.
+ * better error messages (instead of just full-on stack traces)
+   * authentication failures
+   * chef run failures
+   * syntax errors in Meatfile
+ * better explanation of what's going on
+   * what role, server, etc
+ * support for boucher-level search domain (use `boucher server001` rather than `boucher server001.example.com`)
+ * support for dry-run
+ * support for bootstrapping when running `chef-solo`
 
 ## Author and License
 
