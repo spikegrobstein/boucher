@@ -47,11 +47,11 @@ module Boucher
 
     # determines if a node is online by calling +ping_node+
     def node_online?
-      # begin
+      begin
         ping_node
-      # rescue
-        # return false
-      # end
+      rescue
+        return false
+      end
 
       return true
     end
