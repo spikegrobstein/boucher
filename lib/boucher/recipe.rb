@@ -6,7 +6,7 @@ task :configure_node, :roles => :raw_node do
 end
 
 task :bootstrap, :roles => :chef_server do
-  run "knife bootstrap #{hostname} -x #{user} -P #{password} -N #{node_hostname} -r 'role[#{node_role}]' --sudo -E #{node_env} --no-host-key-verify"
+  run "knife bootstrap #{node_hostname} -x #{user} -P #{password} -N #{node_hostname} -r 'role[#{node_role}]' --sudo -E #{node_env} --no-host-key-verify"
 end
 
 task :wait_for_node_to_come_online, :roles => :chef_server do
