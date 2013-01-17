@@ -46,13 +46,9 @@ iface eth0 inet static
   address $IP_ADDR
   gateway $ROUTER_ADDR
   netmask 255.255.255.0
+  dns-nameservers $DNS_SERVER_ADDR
+  dns-search ${ENVIRONMENT}.${DOMAIN} $DOMAIN
 " > $INTERFACES_FILE
-
-# configure /etc/resolv.conf
-echo "nameserver $DNS_SERVER_ADDR
-search ${ENVIRONMENT}.${DOMAIN}
-search $DOMAIN
-" > $RESOLV_CONF_FILE
 
 # configure /etc/hostname
 echo "$HOSTNAME" > $HOSTNAME_FILE
