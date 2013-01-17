@@ -88,13 +88,7 @@ module Boucher
       end
 
       if using_chef_server?
-        begin
-          bootstrap
-        rescue ::Capistrano::CommandError
-          # try again
-          puts "Trying again..."
-          bootstrap
-        end
+        bootstrap
       else
         # we're not using chef server
         # so we just want to copy the cookbooks, build a solo.rb and chef-solo it up on the node
