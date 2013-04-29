@@ -30,6 +30,8 @@ task :upload_cookbooks, :roles => :node do
   # first, try to delete the old cookbooks
   run "rm -rf #{ dest_path } || true"
 
+  run "mkdir #{ dest_path }"
+
   upload fetch(:cookbook_path), dest_path
 end
 
